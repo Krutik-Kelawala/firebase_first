@@ -38,7 +38,10 @@ dependencies:
   firebase_core :
   firebase_auth :
   flutter_easyloading:
-
+  google_sign_in:
+  image_picker:
+  firebase_storage :
+  firebase_database :
 dev_dependencies:
   flutter_test:
     sdk: flutter

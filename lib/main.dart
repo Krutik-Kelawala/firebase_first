@@ -8,7 +8,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
@@ -44,6 +43,13 @@ class _homepageState extends State<homepage> {
 
   @override
   Widget build(BuildContext context) {
+    double theheight = MediaQuery.of(context).size.height;
+    double thewidth = MediaQuery.of(context).size.width;
+    double thestatusbar = MediaQuery.of(context).padding.top;
+    double theappbar = kToolbarHeight;
+    double thenavigatorheight = MediaQuery.of(context).padding.bottom;
+    double the_bodyheight =
+        theheight - thestatusbar - theappbar - thenavigatorheight;
     return screenstatus
         ? Scaffold(
             appBar: AppBar(
@@ -273,17 +279,19 @@ class _homepageState extends State<homepage> {
             ),
           )
         : Center(
-            child: SpinKitFadingCircle(
-              size: 150,
-              itemBuilder: (BuildContext context, int index) {
-                return DecoratedBox(
-                  decoration: BoxDecoration(
-                    color:
-                        index.isEven ? Colors.yellow : Colors.deepOrangeAccent,
-                  ),
-                );
-              },
-            ),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              CircularProgressIndicator(
+                color: Colors.orange,
+              ),
+              SizedBox(
+                height: the_bodyheight * 0.05,
+              ),
+              Text(
+                "Please wait.....",
+                style: TextStyle(fontSize: the_bodyheight * 0.025),
+              )
+            ]),
           );
     ;
   }

@@ -59,138 +59,184 @@ class _viewpgState extends State<viewpg> {
           centerTitle: true,
         ),
         body: screeen_load
-            ? WillPopScope(
-                onWillPop: backpg,
-                child: ListView.builder(
-                  itemCount: datalist.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.all(the_bodyheight * 0.015),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: EdgeInsets.all(the_bodyheight * 0.02),
-                      height: the_bodyheight * 0.35,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: the_bodyheight * 0.25,
-                            width: thewidth * 0.35,
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "${datalist[index]['imgurl']}"),
-                                    fit: BoxFit.cover)),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  left: thewidth * 0.03,
-                                  top: the_bodyheight * 0.1),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Id : ",
-                                        style: TextStyle(
-                                            fontSize: the_bodyheight * 0.025,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "${datalist[index]['id']}",
+            ? RefreshIndicator(
+                color: Colors.orange,
+                triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                onRefresh: () async {
+                  await Future.delayed(Duration(seconds: 1)).then((value) {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) {
+                        return viewpg();
+                      },
+                    ));
+                  });
+                },
+                child: WillPopScope(
+                  onWillPop: backpg,
+                  child: ListView.builder(
+                    itemCount: datalist.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(the_bodyheight * 0.015),
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent,
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.all(the_bodyheight * 0.02),
+                        height: the_bodyheight * 0.35,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30)),
+                              height: the_bodyheight * 0.25,
+                              width: thewidth * 0.35,
+                              child: Card(
+                                  child: Image.network(
+                                      "${datalist[index]['imgurl']}",
+                                      fit: BoxFit.fill),
+                                  color: Colors.cyanAccent,
+                                  elevation: 10,
+                                  shadowColor: Colors.cyan,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                            ),
+                            // Container(
+                            //   height: the_bodyheight * 0.25,
+                            //   width: thewidth * 0.35,
+                            //   decoration: BoxDecoration(
+                            //       border: Border.all(width: 1),
+                            //       image: DecorationImage(
+                            //           image: NetworkImage(
+                            //               "${datalist[index]['imgurl']}"),
+                            //           fit: BoxFit.cover)),
+                            // ),
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    left: thewidth * 0.03,
+                                    top: the_bodyheight * 0.1),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Id : ",
                                           style: TextStyle(
-                                              fontSize: the_bodyheight * 0.025),
+                                              fontSize: the_bodyheight * 0.025,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Name : ",
-                                        style: TextStyle(
-                                            fontSize: the_bodyheight * 0.025,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "${datalist[index]['name']}",
+                                        Expanded(
+                                          child: Text(
+                                            "${datalist[index]['id']}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    the_bodyheight * 0.025),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Name : ",
                                           style: TextStyle(
-                                              fontSize: the_bodyheight * 0.025),
+                                              fontSize: the_bodyheight * 0.025,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Mobile No : ",
-                                        style: TextStyle(
-                                            fontSize: the_bodyheight * 0.025,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "${datalist[index]['mobile']}",
+                                        Expanded(
+                                          child: Text(
+                                            "${datalist[index]['name']}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    the_bodyheight * 0.025),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Mobile No : ",
                                           style: TextStyle(
-                                              fontSize: the_bodyheight * 0.025),
+                                              fontSize: the_bodyheight * 0.025,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        Expanded(
+                                          child: Text(
+                                            "${datalist[index]['mobile']}",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    the_bodyheight * 0.025),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            child: PopupMenuButton(
-                              onSelected: (value) {
-                                if (value == 1) {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(
-                                    builder: (context) {
-                                      return updatepg(datalist, index);
-                                    },
-                                  ));
-                                }
-                              },
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                      value: 1, child: Text("Update")),
-                                  PopupMenuItem(
-                                      onTap: () {
-                                        setState(() {
-                                          Future<void> ref = FirebaseDatabase
-                                              .instance
-                                              .ref("My realtime DB")
-                                              .child("${datalist[index]['id']}")
-                                              .remove();
-                                        });
+                            Container(
+                              child: PopupMenuButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                onSelected: (value) {
+                                  if (value == 1) {
+                                    Navigator.pushReplacement(context,
+                                        MaterialPageRoute(
+                                      builder: (context) {
+                                        return updatepg(datalist, index);
                                       },
-                                      child: Text("Delete"))
-                                ];
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
+                                    ));
+                                  }
+                                },
+                                itemBuilder: (context) {
+                                  return [
+                                    PopupMenuItem(
+                                        value: 1, child: Text("Update")),
+                                    PopupMenuItem(
+                                        onTap: () {
+                                          setState(() {
+                                            Future<void> ref = FirebaseDatabase
+                                                .instance
+                                                .ref("My realtime DB")
+                                                .child(
+                                                    "${datalist[index]['id']}")
+                                                .remove();
+                                          });
+                                        },
+                                        child: Text("Delete"))
+                                  ];
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               )
             : Center(
-                child: SpinKitChasingDots(
-                  size: the_bodyheight * 0.1,
-                  color: Colors.black,
-                ),
-              ));
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: Colors.orange,
+                      ),
+                      SizedBox(
+                        height: the_bodyheight * 0.05,
+                      ),
+                      Text(
+                        "Please wait.....",
+                        style: TextStyle(fontSize: the_bodyheight * 0.025),
+                      )
+                    ]),
+              )
+    );
   }
 
   Future<bool> backpg() {

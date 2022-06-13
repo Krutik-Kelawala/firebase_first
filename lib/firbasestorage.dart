@@ -39,13 +39,16 @@ class _firebasespageState extends State<firebasespage> {
                 // Pick an image
                 final XFile? image =
                     await _picker.pickImage(source: ImageSource.gallery);
-                if (image == null) {
-                  setState(() {
-                    imagestore = image!.path;
-                  });
-                } else {
-                  FileImage(File(""));
-                }
+                setState(() {
+                  imagestore = image!.path;
+                });
+                // if (image == null) {
+                //   setState(() {
+                //     imagestore = image!.path;
+                //   });
+                // } else {
+                //   FileImage(File(""));
+                // }
               },
               child: Container(
                 height: 150,
@@ -56,8 +59,9 @@ class _firebasespageState extends State<firebasespage> {
                         size: 50,
                       )
                     : CircleAvatar(
-                        radius: 200,
-                        backgroundImage: FileImage(File("${imagestore}"))),
+                        maxRadius: 300,
+                        backgroundImage: FileImage(File("${imagestore}")),
+                      ),
               ),
             ),
             SizedBox(
@@ -75,6 +79,7 @@ class _firebasespageState extends State<firebasespage> {
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: phno,
                   decoration: InputDecoration(
                       label: Text("Mobile no"),
@@ -90,7 +95,7 @@ class _firebasespageState extends State<firebasespage> {
                   String dt =
                       "${date.day}-${date.month}-${date.year}-${date.hour}:${date.minute}";
 
-                  String imagename = "uploadeimage${dt}.jpg";
+                  String imagename = "uploadeimg${dt}.jpg";
                   final spaceRef =
                       storageRef.child("Uploadeimgfolder/$imagename");
                   await spaceRef.putFile(File(imagestore));
@@ -109,7 +114,11 @@ class _firebasespageState extends State<firebasespage> {
                       "imgurl": urlimage,
                       "id": id
                     });
-                    EasyLoading.showProgress(3,status: "Uploading....").whenComplete(() {
+                    // EasyLoading.instance.indicatorType =
+                    //     EasyLoadingIndicatorType.spinningCircle;
+                    EasyLoading.show(
+                      status: "Uploading....",
+                    ).whenComplete(() {
                       EasyLoading.dismiss();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Uplode Successfully !"),
@@ -123,7 +132,19 @@ class _firebasespageState extends State<firebasespage> {
                     });
                   });
                 },
-                child: Text("Submit"))
+                child: Text("Submit")),
+            SizedBox(
+              height: 20,
+            ),
+            FlatButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return viewpg();
+                    },
+                  ));
+                },
+                child: Text("Skip & show viewpage"))
           ],
         ),
       ),

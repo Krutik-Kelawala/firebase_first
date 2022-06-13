@@ -94,6 +94,7 @@ class _viewpgState extends State<viewpg> {
                               height: the_bodyheight * 0.25,
                               width: thewidth * 0.35,
                               child: Card(
+                                  borderOnForeground: true,
                                   child: Image.network(
                                       "${datalist[index]['imgurl']}",
                                       fit: BoxFit.fill),
@@ -235,8 +236,7 @@ class _viewpgState extends State<viewpg> {
                         style: TextStyle(fontSize: the_bodyheight * 0.025),
                       )
                     ]),
-              )
-    );
+              ));
   }
 
   Future<bool> backpg() {

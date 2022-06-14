@@ -24,7 +24,7 @@ class _viewpgState extends State<viewpg> {
   Viewmydata() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("My realtime DB");
     DatabaseEvent dbEvent = await ref.once();
-    print("Data==${dbEvent.snapshot.value}");
+    print("Dataaaaa==${dbEvent.snapshot.value}");
 
     Map viewmap = dbEvent.snapshot.value as Map;
     viewmap.forEach((key, value) {
